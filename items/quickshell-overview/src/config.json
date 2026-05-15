@@ -1,0 +1,65 @@
+{
+  "appearance": {
+    "colorSource": "matugen",
+    "rounding": {
+      "unsharpen": 2,
+      "verysmall": 8,
+      "small": 12,
+      "normal": 17,
+      "large": 23,
+      "full": 9999,
+      "screenRounding": 23,
+      "windowRounding": 18
+    },
+    "font": {
+      "family": {
+        "main": "sans-serif",
+        "title": "sans-serif",
+        "expressive": "sans-serif"
+      },
+      "pixelSize": {
+        "smaller": 12,
+        "small": 15,
+        "normal": 16,
+        "larger": 19,
+        "huge": 22
+      }
+    },
+    "animation": {
+      "duration": {
+        "elementMove": 460,
+        "elementMoveEnter": 320,
+        "elementMoveFast": 180
+      }
+    },
+    "sizes": {
+      "elevationMargin": 10
+    }
+  },
+  "overview": {
+    "rows": 2,
+    "columns": 5,
+    "scale": 0.16,
+    "workspaceSpacing": 5,
+    "showSpecialWorkspaces": false,
+    "effects": {
+      "enableBackdrop": true,
+      "backdropOpacity": 0.18,
+      "panelOpacity": 0.94,
+      "workspaceOpacity": 0.92,
+      "emptyWorkspaceWallpaperOverlayOpacity": 0.1,
+      "windowOverlayOpacity": 0.1,
+      "enableBlur": true,
+      "glassMode": false,
+      "glassTintStrength": 0.26,
+      "glassBorderOpacity": 0.72,
+      "glassShineOpacity": 0.08
+    },
+    "backgroundPadding": 12
+  },
+  "windowPreview": {
+    "showIcons": false,
+    "cropToFill": true,
+    "inactiveMonitorOpacity": 0.45
+  }
+}

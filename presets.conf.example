@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Example:
+# presets[base]="nvim fish starship tmux"
+# presets[desktop]="niri foot fuzzel"
