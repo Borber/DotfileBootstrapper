@@ -1,10 +1,20 @@
--- 指定应用在普通工作区独占时自动进入真全屏。
--- 同一工作区出现其它窗口后，自动恢复为普通平铺窗口。
+-- 指定应用自动进入真全屏。
+-- Zen/PiliPlus 只在普通工作区独占时全屏；Minecraft 游戏窗口始终全屏。
 
 -- 只用明确的 class / initial_class 匹配，避免标题等弱特征误判。
-local target_classes = {
+local exclusive_fullscreen_classes = {
   ["com.example.piliplus"] = true,
   ["zen"] = true,
+}
+
+local always_fullscreen_classes = {
+  ["minecraft"] = true,
+}
+
+-- Minecraft 的 class 可能带版本号，例如 "Minecraft 1.20.6"。
+local always_fullscreen_class_prefixes = {
+  "minecraft ",
+  "minecraft*",
 }
 
 local function normalized(value)
@@ -15,10 +25,41 @@ local function normalized(value)
   return value:lower()
 end
 
-local function is_target(window)
+local function starts_with(value, prefix)
+  return value:sub(1, #prefix) == prefix
+end
+
+local function class_matches(value, exact_classes, prefixes)
+  local class = normalized(value)
+
+  if not class then
+    return false
+  end
+
+  if exact_classes[class] == true then
+    return true
+  end
+
+  for _, prefix in ipairs(prefixes or {}) do
+    if starts_with(class, prefix) then
+      return true
+    end
+  end
+
+  return false
+end
+
+local function is_exclusive_fullscreen_target(window)
   return window and (
-    target_classes[normalized(window.class)] == true
-    or target_classes[normalized(window.initial_class)] == true
+    class_matches(window.class, exclusive_fullscreen_classes)
+    or class_matches(window.initial_class, exclusive_fullscreen_classes)
+  )
+end
+
+local function is_always_fullscreen_target(window)
+  return window and (
+    class_matches(window.class, always_fullscreen_classes, always_fullscreen_class_prefixes)
+    or class_matches(window.initial_class, always_fullscreen_classes, always_fullscreen_class_prefixes)
   )
 end
 
@@ -59,9 +100,11 @@ local function update_workspace(workspace)
 
   local only_window = #windows == 1 and windows[1] or nil
 
-  -- 目标窗口独占时全屏；只要有额外窗口，就恢复普通显示。
+  -- Minecraft 游戏窗口始终全屏；其它目标窗口独占时全屏。
   for _, window in ipairs(windows) do
-    if is_target(window) then
+    if is_always_fullscreen_target(window) then
+      set_fullscreen(window, true)
+    elseif is_exclusive_fullscreen_target(window) then
       set_fullscreen(window, window == only_window)
     end
   end

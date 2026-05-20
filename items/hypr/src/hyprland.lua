@@ -14,6 +14,7 @@ local terminal = "ghostty"
 local file_manager = "dolphin"
 local menu = "dms ipc call spotlight toggle"
 local notepad = "dms ipc call notepad toggle"
+local wayscriber = "wayscriber"
 
 
 -- ############################################################################
@@ -70,14 +71,15 @@ hl.env("GLFW_IM_MODULE", "ibus")
 -- ############################################################################
 
 hl.on("hyprland.start", function()
-  -- DMS 服务（显示管理/快捷键/光标等）
-  hl.exec_cmd("dms run")
+  -- DMS is managed by systemd user service: dms.service
   -- 显示器自动切换 (kanshi)
   hl.exec_cmd("kanshi")
   -- 输入法 (fcitx5 后台守护进程)
   hl.exec_cmd("fcitx5 -d --replace")
   -- Quickshell 概览面板
   hl.exec_cmd("qs -c overview")
+  -- 屏幕批注工具 (wayscriber)
+  hl.exec_cmd(wayscriber .. " --daemon")
 end)
 
 
@@ -101,6 +103,8 @@ hl.bind(main_mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(main_mod .. " + R", hl.dsp.exec_cmd(menu))
 -- Super + N            → 打开记事本
 hl.bind(main_mod .. " + N", hl.dsp.exec_cmd(notepad))
+-- Super + D            → 切换屏幕批注覆盖层
+hl.bind(main_mod .. " + D", hl.dsp.exec_cmd(wayscriber .. " --daemon-toggle"))
 
 
 -- ############################################################################
@@ -240,7 +244,7 @@ require("dms.outputs")
 require("dms.binds")
 -- Grimblast 截图快捷键
 require("grimblast")
--- PiliPlus / Zen Browser 在独占工作区时自动全屏
+-- PiliPlus / Zen Browser 独占工作区时自动全屏；Minecraft 游戏窗口始终全屏
 require("smart_fullscreen")
 -- DMS 生成的光标配置
 require("dms.cursor")

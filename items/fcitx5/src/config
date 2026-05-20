@@ -51,7 +51,7 @@ showInputMethodInformationWhenFocusIn=False
 # Show compact input method information
 CompactInputMethodInformation=True
 # Show first input method information
-ShowFirstInputMethodInformation=False
+ShowFirstInputMethodInformation=True
 # Default page size
 DefaultPageSize=10
 # Override XKB Option
@@ -70,4 +70,3 @@ AllowInputMethodForPassword=False
 ShowPreeditForPassword=False
 # Interval of saving user data in minutes
 AutoSavePeriod=30
-
