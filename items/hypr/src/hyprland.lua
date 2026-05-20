@@ -244,6 +244,8 @@ require("dms.outputs")
 require("dms.binds")
 -- Grimblast 截图快捷键
 require("grimblast")
+-- wl-kbptr 键盘快速点击
+require("wl_kbptr")
 -- PiliPlus / Zen Browser 独占工作区时自动全屏；Minecraft 游戏窗口始终全屏
 require("smart_fullscreen")
 -- DMS 生成的光标配置

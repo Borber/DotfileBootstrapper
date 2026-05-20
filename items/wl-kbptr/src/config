@@ -1,0 +1,18 @@
+[general]
+home_row_keys=asdfqwerjkl
+modes=bisect
+cancellation_status_code=0
+
+[mode_bisect]
+label_font_family=Maple Mono NF
+label_font_size=20
+label_color=#f8fafcff
+label_padding=12
+pointer_size=24
+pointer_color=#f9d65cee
+unselectable_bg_color=#10141b66
+even_area_bg_color=#2a5f6f66
+even_area_border_color=#7dd3fccc
+odd_area_bg_color=#6f4a6666
+odd_area_border_color=#f0abfccc
+history_border_color=#10141b66
