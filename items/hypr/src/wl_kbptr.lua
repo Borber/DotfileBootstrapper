@@ -1,1 +1,1 @@
-hl.bind("SUPER + G", hl.dsp.exec_cmd("wl-kbptr"))
+hl.bind("SUPER + F", hl.dsp.exec_cmd("wl-kbptr"))
