@@ -1,0 +1,89 @@
+# Managed by DotfileBootstrapper.
+# Wayle merges this partial config with its built-in defaults.
+
+imports = []
+
+[general]
+font-sans = "Maple Mono NF"
+font-mono = "Maple Mono NF"
+
+[bar]
+scale = 1.0
+inset-edge = 0.0
+inset-ends = 0.0
+padding = 0.2
+padding-ends = 0.35
+module-gap = 0.25
+location = "top"
+exclusive = true
+layer = "top"
+background-opacity = 100
+border-location = "none"
+rounding = "none"
+shadow = "none"
+button-variant = "block-prefix"
+button-rounding = "none"
+button-gap = 0.5
+dropdown-shadow = false
+
+[[bar.layout]]
+monitor = "*"
+show = true
+left = ["hyprland-workspaces", "window-title"]
+center = ["clock"]
+right = [
+  "systray",
+  "network",
+  "bluetooth",
+  "volume",
+  "cpu",
+  "ram",
+  "battery",
+  "notifications",
+  "dashboard",
+]
+
+[styling]
+theme-provider = "wayle"
+rounding = "none"
+
+[styling.palette]
+bg = "#141420"
+surface = "#1c1c2c"
+elevated = "#262638"
+fg = "#d4d6e8"
+fg-muted = "#8a8ca4"
+primary = "#e0947a"
+red = "#e46870"
+yellow = "#e0b870"
+green = "#68c898"
+blue = "#78a0e0"
+
+[modules.clock]
+format = "%H:%M"
+dropdown-show-seconds = false
+
+[modules.window-title]
+label-max-length = 40
+
+[modules.cpu]
+poll-interval-ms = 3000
+format = "{{ percent }}%"
+
+[modules.ram]
+poll-interval-ms = 5000
+format = "{{ percent }}%"
+
+[modules.network]
+label-max-length = 12
+
+[modules.media]
+label-max-length = 30
+
+[modules.notifications]
+popup-monitor = "primary"
+popup-position = "top-right"
+popup-duration = 5000
+
+[wallpaper]
+engine-enabled = false
