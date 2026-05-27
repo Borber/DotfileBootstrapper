@@ -4,6 +4,7 @@
 
 [shell]
 font_family = "Maple Mono NF"
+launch_apps_as_systemd_services = true
 settings_show_advanced = false
 
 [bar.default]
