@@ -1,0 +1,53 @@
+# Dark translucent glass setup
+
+font-family = "Maple Mono NF"
+font-family = "LXGW Bright"
+font-size = 12
+
+foreground = #cdd6f4
+background = #0b0f14
+
+selection-foreground = #0b0f14
+selection-background = #89b4fa
+
+cursor-color = #cdd6f4
+cursor-text = #0b0f14
+cursor-style = bar
+cursor-style-blink = true
+
+palette = 0=#11111b
+palette = 1=#f38ba8
+palette = 2=#a6e3a1
+palette = 3=#f9e2af
+palette = 4=#89b4fa
+palette = 5=#cba6f7
+palette = 6=#94e2d5
+palette = 7=#bac2de
+palette = 8=#45475a
+palette = 9=#eba0ac
+palette = 10=#a6e3a1
+palette = 11=#f9e2af
+palette = 12=#74c7ec
+palette = 13=#f5c2e7
+palette = 14=#89dceb
+palette = 15=#f5f7ff
+
+background-opacity = 0.76
+background-opacity-cells = true
+background-blur = 32
+
+window-padding-x = 10
+window-padding-y = 10
+window-padding-color = background
+
+window-width = 110
+window-height = 34
+window-decoration = none
+window-theme = ghostty
+window-titlebar-background = #0b0f14
+window-titlebar-foreground = #cdd6f4
+window-show-tab-bar = never
+
+copy-on-select = clipboard
+clipboard-trim-trailing-spaces = true
+confirm-close-surface = false
