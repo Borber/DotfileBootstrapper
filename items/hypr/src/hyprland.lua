@@ -9,11 +9,16 @@
 -- 主修饰键：SUPER 即 Windows / Command 键
 local main_mod = "SUPER"
 
--- 常用程序：终端 / 文件管理器 / 启动器 / 记事本
+local function shell_quote(value)
+  return "'" .. tostring(value):gsub("'", "'\\''") .. "'"
+end
+
+-- 常用程序：终端 / 文件管理器 / 启动器
 local terminal = "ghostty"
 local file_manager = "dolphin"
-local menu = "dms ipc call spotlight toggle"
-local notepad = "dms ipc call notepad toggle"
+local noctalia_bin = os.getenv("NOCTALIA_BIN") or ((os.getenv("HOME") or "") .. "/.local/bin/noctalia")
+local noctalia = shell_quote(noctalia_bin)
+local menu = noctalia .. " msg panel-toggle launcher"
 local wayscriber = "wayscriber"
 
 
@@ -71,13 +76,10 @@ hl.env("GLFW_IM_MODULE", "ibus")
 -- ############################################################################
 
 hl.on("hyprland.start", function()
-  -- DMS is managed by systemd user service: dms.service
   -- 显示器自动切换 (kanshi)
   hl.exec_cmd("kanshi")
   -- 输入法 (fcitx5 后台守护进程)
   hl.exec_cmd("fcitx5 -d --replace")
-  -- Quickshell 概览面板
-  hl.exec_cmd("qs -c overview")
   -- 屏幕批注工具 (wayscriber)
   hl.exec_cmd(wayscriber .. " --daemon")
 end)
@@ -101,18 +103,8 @@ hl.bind(main_mod .. " + E", hl.dsp.exec_cmd(file_manager))
 hl.bind(main_mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 -- Super + R            → 打开启动器 / 搜索菜单
 hl.bind(main_mod .. " + R", hl.dsp.exec_cmd(menu))
--- Super + N            → 打开记事本
-hl.bind(main_mod .. " + N", hl.dsp.exec_cmd(notepad))
 -- Super + D            → 切换屏幕批注覆盖层
 hl.bind(main_mod .. " + D", hl.dsp.exec_cmd(wayscriber .. " --daemon-toggle"))
-
-
--- ############################################################################
--- ##  快捷键：任务切换 & 全局覆盖
--- ############################################################################
-
--- Alt + Tab → 切换概览面板
-hl.bind("ALT + TAB", hl.dsp.exec_cmd("qs ipc -c overview call overview toggle"))
 
 
 -- ############################################################################
@@ -238,15 +230,13 @@ hl.window_rule({
 -- ##  外部模块导入
 -- ############################################################################
 
--- DMS 生成的显示器配置（分辨率/位置/缩放等）
-require("dms.outputs")
--- DMS 生成的额外快捷键
-require("dms.binds")
+-- 显示器配置（分辨率/位置/缩放等）
+require("outputs")
 -- Grimblast 截图快捷键
 require("grimblast")
 -- wl-kbptr 键盘快速点击
 require("wl_kbptr")
 -- PiliPlus / Zen Browser 独占工作区时自动全屏；Minecraft 游戏窗口始终全屏
 require("smart_fullscreen")
--- DMS 生成的光标配置
-require("dms.cursor")
+-- 光标配置
+require("cursor")

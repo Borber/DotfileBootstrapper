@@ -1,0 +1,45 @@
+# Managed by DotfileBootstrapper.
+# Noctalia merges all *.toml files in ~/.config/noctalia, then applies
+# ~/.local/state/noctalia/settings.toml as an app-written override layer.
+
+[shell]
+font_family = "Maple Mono NF"
+settings_show_advanced = false
+
+[bar.default]
+end = [
+  "tray",
+  "clipboard",
+  "network",
+  "bluetooth",
+  "volume",
+  "brightness",
+  "cpu",
+  "ram",
+  "battery",
+  "control-center",
+  "notifications",
+  "session",
+]
+margin_edge = 0
+margin_ends = 0
+radius = 0
+start = ["workspaces"]
+thickness = 25
+
+[theme]
+builtin = "Dracula"
+mode = "light"
+source = "wallpaper"
+
+[wallpaper]
+directory = "~/Pictures/wallpaper"
+
+[wallpaper.default]
+path = "~/Pictures/wallpaper/pray.png"
+
+[wallpaper.monitors.HDMI-A-1]
+path = "~/Pictures/wallpaper/pray.png"
+
+[widget.clock]
+scale = 1.35

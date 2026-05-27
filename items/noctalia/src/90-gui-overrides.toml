@@ -1,0 +1,18 @@
+# Managed by DotfileBootstrapper.
+# Imported from Noctalia GUI settings.
+# Re-import with items/noctalia/import-gui-settings.sh.
+
+[shell.panel]
+shadow = false
+
+[theme]
+builtin = "Ayu"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "qt" ]
+
+[widget.cpu]
+display = "text"
+
+[widget.ram]
+display = "text"
