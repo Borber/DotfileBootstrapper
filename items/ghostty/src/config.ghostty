@@ -12,8 +12,11 @@ selection-background = #89b4fa
 
 cursor-color = #cdd6f4
 cursor-text = #0b0f14
-cursor-style = bar
+cursor-style = block
 cursor-style-blink = true
+shell-integration-features = no-cursor
+custom-shader = shaders/neovide.glsl
+custom-shader-animation = true
 
 palette = 0=#11111b
 palette = 1=#f38ba8
