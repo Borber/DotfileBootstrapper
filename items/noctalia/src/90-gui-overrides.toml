@@ -2,17 +2,42 @@
 # Imported from Noctalia GUI settings.
 # Re-import with items/noctalia/import-gui-settings.sh.
 
-[shell.panel]
+[bar.default]
+end = [ "tray", "clipboard", "network", "bluetooth", "volume", "cpu", "ram", "battery", "notifications", "session" ]
+position = "bottom"
 shadow = false
 
-[theme]
-builtin = "Ayu"
+[brightness]
+enable_ddcutil = true
 
-    [theme.templates]
-    builtin_ids = [ "gtk3", "gtk4", "qt" ]
+[shell]
+settings_show_advanced = true
+shared_gl_context = false
+
+[theme]
+builtin = "Rosé Pine"
+source = "builtin"
+
+[weather]
+address = "shenzhen, CN"
+
+[widget.battery]
+show_label = false
 
 [widget.cpu]
-display = "text"
+display = "gauge"
+show_label = false
 
 [widget.ram]
-display = "text"
+display = "gauge"
+show_label = false
+
+[widget.tray]
+drawer = true
+drawer_columns = 5
+hidden = [ "wayscriber", "piliplus" ]
+scale = 1.1500000000000001
+
+[widget.volume]
+show_label = false
+
