@@ -6,6 +6,8 @@ const float DURATION = 0.2;
 const float TRAIL_SIZE = 1.0;
 const float SHAPE_FACTOR = 0.3;
 const float THRESHOLD_MIN_DISTANCE = 0.1;
+const float STARTUP_GRACE = 1.0;
+const float FOCUS_GRACE = 0.5;
 const float BLUR = 1.0;
 const float TRAIL_THICKNESS = 1.0;
 const float TRAIL_THICKNESS_X = 1.0;
@@ -188,8 +190,11 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord){
     vec4 newColor = vec4(fragColor);
 
     float baseProgress = iTime - iTimeCursorChange;
+    bool previousCursorValid = previousCursor.z > 0.0 && previousCursor.w > 0.0;
+    bool surfaceFocused = iFocus > 0;
+    bool startupSettled = iTime > STARTUP_GRACE && iTime - iTimeFocus > FOCUS_GRACE;
 
-    if (lineLength > minDist && baseProgress < DURATION - 0.001) {
+    if (surfaceFocused && previousCursorValid && startupSettled && lineLength > minDist && baseProgress < DURATION - 0.001) {
         float cc_half_height = currentCursor.w * 0.5;
         float cc_center_y = currentCursor.y - cc_half_height;
         float cc_new_half_height = cc_half_height * TRAIL_THICKNESS;
