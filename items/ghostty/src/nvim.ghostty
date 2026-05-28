@@ -1,0 +1,18 @@
+# Ghostty profile used only by the nv fish function.
+# Global terminal windows keep using config.ghostty unchanged.
+
+font-size = 16
+adjust-cell-height = 2
+
+cursor-color = #575279
+cursor-text = #faf4ed
+
+background = #faf4ed
+background-opacity = 1
+background-opacity-cells = false
+background-blur = false
+
+window-padding-x = 6
+window-padding-y = 4
+window-padding-balance = true
+window-padding-color = background
