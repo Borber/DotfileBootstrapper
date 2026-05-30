@@ -1,0 +1,146 @@
+# DotfileBootstrapper yazi theme
+# Transparent terminal background with Rose Pine accents.
+
+[flavor]
+dark = ""
+light = ""
+
+[app]
+overall = {}
+
+[mgr]
+cwd = { fg = "#9ccfd8", bold = true }
+find_keyword = { fg = "#ebbcba", bold = true }
+find_position = { fg = "#c4a7e7", bold = true }
+symlink_target = { fg = "#6e6a86", italic = true }
+
+marker_copied = { fg = "#9ccfd8", bg = "#9ccfd8" }
+marker_cut = { fg = "#eb6f92", bg = "#eb6f92" }
+marker_marked = { fg = "#f6c177", bg = "#f6c177" }
+marker_selected = { fg = "#c4a7e7", bg = "#c4a7e7" }
+
+count_copied = { fg = "#191724", bg = "#9ccfd8", bold = true }
+count_cut = { fg = "#191724", bg = "#eb6f92", bold = true }
+count_selected = { fg = "#191724", bg = "#c4a7e7", bold = true }
+
+border_symbol = "│"
+border_style = { fg = "#524f67" }
+syntect_theme = ""
+
+[indicator]
+parent = { fg = "#e0def4", bg = "#21202e" }
+current = { fg = "#e0def4", bg = "#403d52", bold = true }
+preview = { fg = "#c4a7e7", bg = "#21202e" }
+padding = { open = "▐", close = "▌" }
+
+[tabs]
+active = { fg = "#e0def4", bold = true }
+inactive = { fg = "#908caa" }
+sep_inner = { open = "[", close = "]" }
+sep_outer = { open = "", close = "" }
+
+[mode]
+normal_main = { fg = "#191724", bg = "#ebbcba", bold = true }
+normal_alt = { fg = "#ebbcba", bg = "reset", bold = true }
+select_main = { fg = "#191724", bg = "#c4a7e7", bold = true }
+select_alt = { fg = "#c4a7e7", bg = "reset", bold = true }
+unset_main = { fg = "#191724", bg = "#31748f", bold = true }
+unset_alt = { fg = "#31748f", bg = "reset", bold = true }
+
+[status]
+overall = { fg = "#e0def4" }
+sep_left = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+perm_type = { fg = "#9ccfd8" }
+perm_read = { fg = "#31748f" }
+perm_write = { fg = "#f6c177" }
+perm_exec = { fg = "#eb6f92" }
+perm_sep = { fg = "#524f67" }
+progress_label = { fg = "#908caa", bold = true }
+progress_normal = { fg = "#9ccfd8", bg = "#26233a" }
+progress_error = { fg = "#eb6f92", bg = "#26233a" }
+
+[which]
+cols = 3
+mask = { bg = "reset" }
+cand = { fg = "#9ccfd8", bold = true }
+rest = { fg = "#908caa" }
+desc = { fg = "#e0def4" }
+separator = "  "
+separator_style = { fg = "#524f67" }
+
+[confirm]
+border = { fg = "#524f67" }
+title = { fg = "#9ccfd8", bold = true }
+body = { fg = "#e0def4" }
+list = { fg = "#908caa" }
+btn_yes = { fg = "#191724", bg = "#31748f", bold = true }
+btn_no = { fg = "#e0def4", bg = "#403d52", bold = true }
+btn_labels = [" Yes ", " No "]
+
+[spot]
+border = { fg = "#524f67" }
+title = { fg = "#9ccfd8", bold = true }
+tbl_col = { fg = "#31748f", bg = "#21202e", bold = true }
+tbl_cell = { fg = "#e0def4", bg = "#21202e" }
+
+[notify]
+title_info = { fg = "#9ccfd8", bold = true }
+title_warn = { fg = "#f6c177", bold = true }
+title_error = { fg = "#eb6f92", bold = true }
+
+[pick]
+border = { fg = "#524f67" }
+active = { fg = "#e0def4", bg = "#403d52", bold = true }
+inactive = { fg = "#908caa" }
+
+[input]
+border = { fg = "#524f67" }
+title = { fg = "#9ccfd8", bold = true }
+value = { fg = "#e0def4" }
+selected = { fg = "#e0def4", bg = "#403d52", bold = true }
+
+[cmp]
+border = { fg = "#524f67" }
+active = { fg = "#e0def4", bg = "#403d52", bold = true }
+inactive = { fg = "#908caa" }
+icon_file = "󰈔"
+icon_folder = "󰉋"
+icon_command = ""
+
+[tasks]
+border = { fg = "#524f67" }
+title = { fg = "#9ccfd8", bold = true }
+hovered = { fg = "#e0def4", bg = "#403d52", bold = true }
+
+[help]
+on = { fg = "#9ccfd8", bold = true }
+run = { fg = "#c4a7e7" }
+desc = { fg = "#e0def4" }
+hovered = { fg = "#e0def4", bg = "#403d52", bold = true }
+footer = { fg = "#908caa" }
+icon_info = ""
+icon_warn = ""
+icon_error = ""
+
+[filetype]
+rules = [
+  { mime = "image/*", fg = "#ebbcba" },
+  { mime = "{audio,video}/*", fg = "#c4a7e7" },
+  { mime = "application/{zip,gzip,x-tar,x-bzip*,x-7z-compressed,x-rar}", fg = "#f6c177" },
+  { mime = "application/{pdf,postscript}", fg = "#eb6f92" },
+  { mime = "text/*", fg = "#e0def4" },
+  { url = "*", is = "orphan", fg = "#eb6f92", crossed = true },
+  { url = "*", is = "exec", fg = "#31748f", bold = true },
+  { url = "*", is = "link", fg = "#9ccfd8", italic = true },
+  { url = "*/", fg = "#9ccfd8", bold = true },
+]
+
+[icon]
+prepend_conds = [
+  { if = "hidden & dir", text = "󱞞", fg = "#6e6a86" },
+  { if = "dir", text = "󰉋", fg = "#9ccfd8" },
+  { if = "orphan", text = "", fg = "#eb6f92" },
+  { if = "link", text = "", fg = "#c4a7e7" },
+  { if = "exec", text = "", fg = "#31748f" },
+]

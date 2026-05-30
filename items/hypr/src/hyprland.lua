@@ -165,8 +165,8 @@ end
 hl.config({
   -- 常规设置：间隙、边框、颜色
   general = {
-    gaps_in = 3,      -- 内间隙 (px)
-    gaps_out = 6,     -- 外间隙 (px)
+    gaps_in = 0,      -- 内间隙 (px)
+    gaps_out = 0,     -- 外间隙 (px)
     border_size = 2,  -- 边框宽度 (px)
     col = {
       active_border = "rgb(c6789a)",          -- 活动窗口边框色
@@ -223,6 +223,15 @@ hl.window_rule({
     class = "^com\\.mitchellh\\.ghostty$",
   },
   group = "deny",
+})
+
+-- 单个可见平铺窗口时隐藏边框；多窗口时保留全局边框颜色作为焦点提示。
+hl.window_rule({
+  match = {
+    float = false,
+    workspace = "w[v1]s[false]",
+  },
+  border_size = 0,
 })
 
 
