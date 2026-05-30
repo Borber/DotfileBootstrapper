@@ -1,12 +1,20 @@
-function v --description "Open Neovide in the current directory or with paths"
-    if not command -q neovide
-        echo "v: neovide not found" >&2
+function v --description "Open nvim in Ghostty with an editor-only profile"
+    if not command -q ghostty
+        echo "v: ghostty not found" >&2
         return 127
     end
 
-    if test (count $argv) -eq 0
-        command neovide --fork --chdir "$PWD"
-    else
-        command neovide --fork $argv
+    if not command -q nvim
+        echo "v: nvim not found" >&2
+        return 127
     end
+
+    set -l profile "$HOME/.config/ghostty/nvim.ghostty"
+
+    command ghostty \
+        --config-file="$profile" \
+        --working-directory="$PWD" \
+        -e nvim $argv >/dev/null 2>&1 &
+    set -l ghostty_pid $last_pid
+    disown $ghostty_pid
 end
