@@ -2,7 +2,8 @@
 
 font-family = "Maple Mono NF"
 font-family = "LXGW Bright"
-font-size = 12
+font-size = 16
+adjust-cell-height = 2
 
 foreground = #cdd6f4
 background = #0b0f14
@@ -17,6 +18,7 @@ cursor-style-blink = true
 shell-integration-features = no-cursor
 custom-shader = shaders/neovide.glsl
 custom-shader-animation = true
+command = fish -lc 'if command -q tmux; and not set -q TMUX; exec tmux new-session -A -s main; else; exec fish -l; end'
 
 palette = 0=#11111b
 palette = 1=#f38ba8
@@ -35,16 +37,18 @@ palette = 13=#f5c2e7
 palette = 14=#89dceb
 palette = 15=#f5f7ff
 
-background-opacity = 0.76
-background-opacity-cells = true
+background-opacity = 0.65
+background-opacity-cells = false
 background-blur = 32
 
-window-padding-x = 10
-window-padding-y = 10
+window-padding-x = 2
+window-padding-y = 0
+window-padding-balance = false
 window-padding-color = background
 
 window-width = 110
 window-height = 34
+window-step-resize = true
 window-decoration = none
 window-theme = ghostty
 window-titlebar-background = #0b0f14

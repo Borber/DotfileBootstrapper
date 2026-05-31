@@ -24,7 +24,7 @@ image_quality = 80
 
 [opener]
 edit = [
-  { run = "fish -lc 'v $argv' %s", desc = "Edit in nvim", for = "unix" },
+  { run = "fish -lc 'v $argv' %s", block = true, desc = "Edit in nvim", for = "unix" },
 ]
 
 [which]
