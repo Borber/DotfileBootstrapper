@@ -18,7 +18,7 @@ cursor-style-blink = true
 shell-integration-features = no-cursor
 custom-shader = shaders/neovide.glsl
 custom-shader-animation = true
-command = fish -lc 'if command -q tmux; and not set -q TMUX; exec tmux new-session -A -s main; else; exec fish -l; end'
+command = fish -l
 
 palette = 0=#11111b
 palette = 1=#f38ba8
