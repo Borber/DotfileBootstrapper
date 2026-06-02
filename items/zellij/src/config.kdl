@@ -15,7 +15,16 @@ keybinds clear-defaults=true {
         bind "t" { SwitchToMode "tab"; }
     }
     locked {
-        bind "Ctrl a" { SwitchToMode "normal"; }
+        bind "Ctrl a" {
+            Run "fcitx5-remote" "-s" "keyboard-us" {
+                close_on_exit true
+                floating true
+                borderless true
+                width "1"
+                height "1"
+            }
+            SwitchToMode "normal"
+        }
     }
     pane {
         bind "left" { MoveFocus "left"; }
