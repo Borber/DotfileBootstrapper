@@ -399,7 +399,9 @@ themes {
 // changing these requires a restart to take effect
 plugins {
     about location="zellij:about"
-    compact-bar location="zellij:compact-bar"
+    compact-bar location="zellij:compact-bar" {
+        tooltip "F1"
+    }
     configuration location="zellij:configuration"
     filepicker location="zellij:strider" {
         cwd "/"
@@ -412,7 +414,6 @@ plugins {
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
-    zjstatus location="file:/home/x/.config/zellij/plugins/zjstatus.wasm"
 }
 
 // Plugins to load in the background when a new session starts
@@ -471,7 +472,7 @@ default_mode "locked"
 // The name of the default layout to load on startup
 // Default: "default"
 // 
-default_layout "zstatus"
+default_layout "native-compact"
  
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -498,6 +499,13 @@ default_layout "zstatus"
 //   - false
 // 
 pane_frames false
+
+ui {
+    pane_frames {
+        hide_session_name true
+        rounded_corners true
+    }
+}
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
