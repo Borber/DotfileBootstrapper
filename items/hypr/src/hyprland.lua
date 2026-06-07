@@ -20,6 +20,8 @@ local noctalia_bin = os.getenv("NOCTALIA_BIN") or ((os.getenv("HOME") or "") .. 
 local noctalia = shell_quote(noctalia_bin)
 local menu = noctalia .. " msg panel-toggle launcher"
 local wayscriber = "wayscriber"
+local audio_sink = "@DEFAULT_AUDIO_SINK@"
+local volume_step = "5%"
 
 
 -- ############################################################################
@@ -105,6 +107,10 @@ hl.bind(main_mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(main_mod .. " + R", hl.dsp.exec_cmd(menu))
 -- Super + D            → 切换屏幕批注覆盖层
 hl.bind(main_mod .. " + D", hl.dsp.exec_cmd(wayscriber .. " --daemon-toggle"))
+
+-- Alt + 滚轮上 / 下   → 增加 / 降低默认输出设备音量
+hl.bind("ALT + mouse_down", hl.dsp.exec_cmd("wpctl set-volume " .. audio_sink .. " " .. volume_step .. "+"))
+hl.bind("ALT + mouse_up", hl.dsp.exec_cmd("wpctl set-volume " .. audio_sink .. " " .. volume_step .. "-"))
 
 
 -- ############################################################################
