@@ -1,6 +1,6 @@
 [Unit]
 Description=Noctalia - A lightweight Wayland shell and bar
-Documentation=https://docs.noctalia.dev/v5/
+Documentation=https://docs.noctalia.dev/
 PartOf=graphical-session.target
 After=graphical-session.target
 Requisite=graphical-session.target
