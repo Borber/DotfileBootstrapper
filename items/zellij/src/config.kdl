@@ -1,4 +1,8 @@
 keybinds clear-defaults=true {
+    shared {
+        bind "Alt n" { NewPane; }
+        bind "Alt t" { NewTab; }
+    }
     normal {
         bind "p" { SwitchToMode "Pane"; }
         bind "t" { SwitchToMode "Tab"; }
