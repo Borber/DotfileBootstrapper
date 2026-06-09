@@ -16,8 +16,6 @@ cursor-text = #0b0f14
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
-custom-shader = shaders/neovide.glsl
-custom-shader-animation = true
 command = fish -l
 
 palette = 0=#11111b
