@@ -28,22 +28,40 @@ local volume_step = "5%"
 -- ##  辅助函数
 -- ############################################################################
 
+local function workspace_window_count(workspace_selector)
+  local windows = hl.get_workspace_windows(workspace_selector)
+  if type(windows) == "table" then
+    return #windows
+  end
+
+  return 0
+end
+
 -- 聚焦到第一个空闲的工作区
 -- 遍历所有工作区，找到编号最小的未被使用的 id 并切换过去
 local function focus_first_empty_workspace()
   local active_workspace = hl.get_active_workspace()
+  if not active_workspace or active_workspace.special then
+    return
+  end
+
+  local active_workspace_id = active_workspace.id
+  if type(active_workspace_id) ~= "number" or active_workspace_id <= 0 then
+    return
+  end
+
   -- 如果当前工作区已经为空，则无需切换
-  if not active_workspace or active_workspace.is_empty or active_workspace.windows == 0 then
+  if workspace_window_count(active_workspace_id) == 0 then
     return
   end
 
   -- 收集已被占用且有窗口的工作区 id
   local used = {}
-  local max_used = 0
+  local max_used = active_workspace_id
 
-  for _, workspace in ipairs(hl.get_workspaces()) do
+  for _, workspace in ipairs(hl.get_workspaces() or {}) do
     local id = workspace.id
-    if type(id) == "number" and id > 0 and not workspace.special and (workspace.windows or 0) > 0 then
+    if type(id) == "number" and id > 0 and not workspace.special and workspace_window_count(id) > 0 then
       used[id] = true
       if id > max_used then
         max_used = id
@@ -53,7 +71,7 @@ local function focus_first_empty_workspace()
 
   -- 从 1 开始寻找第一个未被占用的工作区
   for id = 1, max_used + 1 do
-    if not used[id] and id ~= active_workspace.id then
+    if not used[id] and id ~= active_workspace_id then
       hl.dispatch(hl.dsp.focus({ workspace = id }))
       return
     end
