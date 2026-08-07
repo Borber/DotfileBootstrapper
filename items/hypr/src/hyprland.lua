@@ -16,7 +16,7 @@ end
 -- 常用程序：终端 / 文件管理器 / 启动器
 local terminal = "ghostty"
 local file_manager = "dolphin"
-local noctalia_bin = os.getenv("NOCTALIA_BIN") or ((os.getenv("HOME") or "") .. "/.local/bin/noctalia")
+local noctalia_bin = os.getenv("NOCTALIA_BIN") or "noctalia"
 local noctalia = shell_quote(noctalia_bin)
 local menu = noctalia .. " msg panel-toggle launcher"
 local wayscriber = "wayscriber"

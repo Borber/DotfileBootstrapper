@@ -7,7 +7,7 @@ Requisite=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/noctalia
+ExecStart=/usr/bin/noctalia
 KillMode=process
 Restart=on-failure
 RestartSec=2
