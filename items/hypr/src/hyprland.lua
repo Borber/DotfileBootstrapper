@@ -19,7 +19,6 @@ local file_manager = "dolphin"
 local noctalia_bin = os.getenv("NOCTALIA_BIN") or "noctalia"
 local noctalia = shell_quote(noctalia_bin)
 local menu = noctalia .. " msg panel-toggle launcher"
-local wayscriber = "wayscriber"
 local audio_sink = "@DEFAULT_AUDIO_SINK@"
 local volume_step = "5%"
 
@@ -100,8 +99,8 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("kanshi")
   -- 输入法 (fcitx5 后台守护进程)
   hl.exec_cmd("fcitx5 -d --replace")
-  -- 屏幕批注工具 (wayscriber)
-  hl.exec_cmd(wayscriber .. " --daemon")
+  -- 截图与贴图工具 (Snipaste 需要常驻后台)
+  hl.exec_cmd("Snipaste")
 end)
 
 
@@ -123,12 +122,13 @@ hl.bind(main_mod .. " + E", hl.dsp.exec_cmd(file_manager))
 hl.bind(main_mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 -- Super + R            → 打开启动器 / 搜索菜单
 hl.bind(main_mod .. " + R", hl.dsp.exec_cmd(menu))
--- Super + D            → 切换屏幕批注覆盖层
-hl.bind(main_mod .. " + D", hl.dsp.exec_cmd(wayscriber .. " --daemon-toggle"))
 
 -- Alt + 滚轮上 / 下   → 增加 / 降低默认输出设备音量
 hl.bind("ALT + mouse_down", hl.dsp.exec_cmd("wpctl set-volume " .. audio_sink .. " " .. volume_step .. "+"))
 hl.bind("ALT + mouse_up", hl.dsp.exec_cmd("wpctl set-volume " .. audio_sink .. " " .. volume_step .. "-"))
+
+-- Super + 鼠标右键拖动 → 调整窗口大小
+hl.bind(main_mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 
 -- ############################################################################
@@ -265,8 +265,8 @@ hl.window_rule({
 
 -- 显示器配置（分辨率/位置/缩放等）
 require("outputs")
--- Grimblast 截图快捷键
-require("grimblast")
+-- Snipaste 截图快捷键
+require("snipaste")
 -- wl-kbptr 键盘快速点击
 require("wl_kbptr")
 -- PiliPlus / Zen Browser 独占工作区时自动全屏；Minecraft 游戏窗口始终全屏

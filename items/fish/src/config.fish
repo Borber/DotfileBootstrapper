@@ -5,6 +5,9 @@ if status is-interactive
 end
 
 fish_add_path --path $HOME/bin
-
+fish_add_path "/home/x/.cache/.bun/bin"
 
 zoxide init fish | source
+
+# kimi-code
+fish_add_path -g "/home/x/.kimi-code/bin"
