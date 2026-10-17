@@ -14,7 +14,7 @@ local function shell_quote(value)
 end
 
 -- 常用程序：终端 / 文件管理器 / 启动器
-local terminal = "ghostty"
+local terminal = "env GDK_WAYLAND_DISABLE=ext_background_effect_manager_v1 ghostty"
 local file_manager = "dolphin"
 local noctalia_bin = os.getenv("NOCTALIA_BIN") or "noctalia"
 local noctalia = shell_quote(noctalia_bin)
