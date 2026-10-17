@@ -8,6 +8,12 @@ launch_apps_as_systemd_services = true
 settings_show_advanced = false
 shared_gl_context = false
 
+[shell.screenshot]
+save_to_file = false
+copy_to_clipboard = true
+freeze_screen = true
+annotate = true
+
 [bar.default]
 end = [
   "tray",

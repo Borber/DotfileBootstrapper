@@ -99,8 +99,6 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("kanshi")
   -- 输入法 (fcitx5 后台守护进程)
   hl.exec_cmd("fcitx5 -d --replace")
-  -- 截图与贴图工具 (Snipaste 需要常驻后台)
-  hl.exec_cmd("Snipaste")
 end)
 
 
@@ -265,8 +263,8 @@ hl.window_rule({
 
 -- 显示器配置（分辨率/位置/缩放等）
 require("outputs")
--- Snipaste 截图快捷键
-require("snipaste")
+-- Noctalia 截图快捷键
+require("screenshot")(noctalia)
 -- wl-kbptr 键盘快速点击
 require("wl_kbptr")
 -- PiliPlus / Zen Browser 独占工作区时自动全屏；Minecraft 游戏窗口始终全屏
