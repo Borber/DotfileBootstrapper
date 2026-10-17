@@ -5,6 +5,7 @@ if status is-interactive
 end
 
 fish_add_path --path $HOME/bin
+fish_add_path --path $HOME/.local/bin
 fish_add_path "/home/x/.cache/.bun/bin"
 
 zoxide init fish | source
