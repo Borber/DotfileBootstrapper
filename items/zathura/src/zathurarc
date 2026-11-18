@@ -1,0 +1,64 @@
+# Everforest Dark Medium glass theme.
+# The page and window alpha values are deliberately moderate so text remains readable.
+
+set default-fg                "rgba(232,220,196,1)"
+# Match Ghostty's dark glass layer (#0b0f14 at roughly 65% after the
+# Zathura window opacity rule is applied).
+set default-bg                "rgba(11,15,20,0.70)"
+set font                      "Maple Mono NF 10"
+set guioptions                ""
+
+set completion-bg             "rgba(52,63,68,0.78)"
+set completion-fg             "rgba(232,220,196,1)"
+set completion-highlight-bg   "rgba(167,192,128,0.90)"
+set completion-highlight-fg   "rgba(45,53,59,1)"
+set completion-group-bg       "rgba(35,42,46,0.82)"
+set completion-group-fg       "rgba(232,220,196,1)"
+
+set statusbar-fg              "rgba(232,220,196,1)"
+set statusbar-bg              "rgba(35,42,46,0.52)"
+set statusbar-basename        true
+set statusbar-home-tilde      true
+set statusbar-page-percent    true
+set inputbar-fg              "rgba(232,220,196,1)"
+set inputbar-bg              "rgba(45,53,59,0.72)"
+
+set notification-bg           "rgba(45,53,59,0.82)"
+set notification-fg           "rgba(232,220,196,1)"
+set notification-error-bg    "rgba(45,53,59,0.88)"
+set notification-error-fg    "rgba(230,126,128,1)"
+set notification-warning-bg  "rgba(45,53,59,0.88)"
+set notification-warning-fg  "rgba(219,188,127,1)"
+
+set index-bg                  "rgba(45,53,59,0.72)"
+set index-fg                  "rgba(232,220,196,1)"
+set index-active-bg           "rgba(66,80,71,0.90)"
+set index-active-fg           "rgba(232,220,196,1)"
+
+# Make the paper itself transparent so it reveals the same dark glass canvas
+# used outside the page, without creating a second opaque page layer.
+set recolor                   true
+set recolor-lightcolor        "rgba(0,0,0,0)"
+set recolor-darkcolor         "rgba(232,220,196,1)"
+set recolor-keephue           true
+set recolor-reverse-video     true
+
+set render-loading-bg         "rgba(11,15,20,0.70)"
+set render-loading-fg         "rgba(232,220,196,1)"
+set highlight-color           "rgba(219,188,127,0.30)"
+set highlight-active-color    "rgba(214,153,182,0.45)"
+set highlight-fg              "rgba(45,53,59,0.95)"
+set selection-notification    false
+
+set adjust-open               "best-fit"
+set pages-per-row             1
+set scroll-page-aware         true
+set scroll-full-overlap       0.08
+set scroll-step               60
+set selection-clipboard       clipboard
+set database                  sqlite
+
+# Vim-style full-page reading controls. Space and Shift+Space keep their
+# built-in next/previous page behavior.
+map h scroll full-up
+map l scroll full-down
