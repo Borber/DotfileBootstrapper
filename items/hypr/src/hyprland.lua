@@ -247,6 +247,15 @@ hl.window_rule({
   group = "deny",
 })
 
+-- Zathura 玻璃阅读窗口：将透明页面交给现有 blur 处理。
+hl.window_rule({
+  name = "zathura-glass",
+  match = {
+    class = "^org\\.pwmt\\.zathura$",
+  },
+  opacity = "0.94 override 0.94 override 1.0 override",
+})
+
 -- 单个可见平铺窗口时隐藏边框；多窗口时保留全局边框颜色作为焦点提示。
 hl.window_rule({
   match = {
@@ -267,7 +276,5 @@ require("outputs")
 require("screenshot")(noctalia)
 -- wl-kbptr 键盘快速点击
 require("wl_kbptr")
--- PiliPlus / Zen Browser 独占工作区时自动全屏；Minecraft 游戏窗口始终全屏
-require("smart_fullscreen")
 -- 光标配置
 require("cursor")
