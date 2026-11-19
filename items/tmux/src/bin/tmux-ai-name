@@ -165,6 +165,7 @@ if [[ -n "$git_root" ]]; then
   git_branch=$(git -C "$working_path" branch --show-current 2>/dev/null || true)
   [[ -n "$git_branch" ]] || git_branch="detached"
 fi
+project_name="${repo_name:-$working_name}"
 
 configured_api_key=$(read_config_value TMUX_AI_API_KEY "$config_file")
 configured_endpoint=$(read_config_value TMUX_AI_ENDPOINT "$config_file")
@@ -246,8 +247,8 @@ fi
 
 pane_output=$(tmux capture-pane -p -J -t "$active_pane" -S "-$context_lines" 2>/dev/null || true)
 context=$(cat <<EOF_CONTEXT | sanitize_context
+Project name: $project_name
 Working directory: $working_name
-Git repository: ${repo_name:-none}
 Git branch: ${git_branch:-none}
 Top-level entries:
 $top_level_entries
@@ -269,7 +270,7 @@ request_body=$(jq -n \
     messages: [
       {
         role: "system",
-        content: "You name one tmux window from terminal activity. Infer the primary task from the active command, recent output, working directory, repository, branch, top-level project entries, and the README excerpt when available. Treat README as supporting project context. Let the active command and recent output override README when they describe a more specific current task. Give the activity a specific, stable title. Prefer the current task over generic names such as shell, terminal, repository, or branch. Return exactly one natural short title, preferably 2 to 4 words and no more than 32 characters. Use spaces between words. Do not use hyphens, colons, slashes, pipes, underscores, quotes, markdown, or newline. Do not repeat a branch name or file name unless it identifies the task. Do not include secrets, usernames, or absolute paths. If the activity is ambiguous, choose the most specific command or project purpose visible in the context."
+        content: "You name one tmux window from terminal activity. Infer the primary task from the project name, active command, recent output, working directory, branch, top-level project entries, and the README excerpt when available. Preserve a distinctive project name in the title when it helps identify the window. Prefer a project and task title such as Project tests or Project server over a generic title such as Rust development. Treat README as supporting project context. Let the active command and recent output override README when they describe a more specific current task. Give the activity a specific, stable title. Prefer the current task over generic names such as shell, terminal, repository, or branch. Return exactly one natural short title, preferably 2 to 4 words and no more than 32 characters. Use spaces between words. Do not use hyphens, colons, slashes, pipes, underscores, quotes, markdown, or newline. Do not repeat a branch name or file name unless it identifies the task. Do not include secrets, usernames, or absolute paths. If the activity is ambiguous, choose the most specific command or project purpose visible in the context."
       },
       {
         role: "user",
