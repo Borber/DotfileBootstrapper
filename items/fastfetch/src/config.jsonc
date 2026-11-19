@@ -56,8 +56,7 @@
     },
     {
       "key": "┃ {#35} ker  {#keys}┃",
-      "type": "command",
-      "text": "uname -r | cut -d'-' -f1"
+      "type": "kernel"
     },
     {
       "key": "┃ {#36} wm   {#keys}┃",
