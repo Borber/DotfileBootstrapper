@@ -207,6 +207,43 @@ top_level_entries=$(
 )
 [[ -n "$top_level_entries" ]] || top_level_entries="(empty)"
 
+readme_file=$(
+  (
+    shopt -s nullglob dotglob
+    for entry in "$working_path"/*; do
+      entry_name="${entry##*/}"
+      lower_entry_name="${entry_name,,}"
+      if [[ -f "$entry" && ( "$lower_entry_name" == "readme" || "$lower_entry_name" == readme.* ) ]]; then
+        printf '%s\n' "$entry"
+        break
+      fi
+    done
+  )
+)
+readme_context="(none found)"
+if [[ -n "$readme_file" ]]; then
+  readme_context=$(sed -n '1,60p' "$readme_file" 2>/dev/null | awk '
+    BEGIN { total = 0 }
+    {
+      remaining = 6000 - total
+      if (remaining <= 0) {
+        exit
+      }
+
+      line_length = length($0)
+      if (line_length + 1 <= remaining) {
+        print
+        total += line_length + 1
+        next
+      }
+
+      print substr($0, 1, remaining)
+      exit
+    }
+  ')
+  [[ -n "$readme_context" ]] || readme_context="(empty)"
+fi
+
 pane_output=$(tmux capture-pane -p -J -t "$active_pane" -S "-$context_lines" 2>/dev/null || true)
 context=$(cat <<EOF_CONTEXT | sanitize_context
 Working directory: $working_name
@@ -214,6 +251,8 @@ Git repository: ${repo_name:-none}
 Git branch: ${git_branch:-none}
 Top-level entries:
 $top_level_entries
+README excerpt:
+$readme_context
 Panes:
 $pane_context
 Recent active pane output:
@@ -230,7 +269,7 @@ request_body=$(jq -n \
     messages: [
       {
         role: "system",
-        content: "You name one tmux window from terminal activity. Infer the primary task from the active command, recent output, working directory, repository, branch, and top-level project entries. Give the activity a specific, stable title. Prefer the current task over generic names such as shell, terminal, repository, or branch. Return exactly one natural short title, preferably 2 to 4 words and no more than 32 characters. Use spaces between words. Do not use hyphens, colons, slashes, pipes, underscores, quotes, markdown, or newline. Do not repeat a branch name or file name unless it identifies the task. Do not include secrets, usernames, or absolute paths. If the activity is ambiguous, choose the most specific command or project purpose visible in the context."
+        content: "You name one tmux window from terminal activity. Infer the primary task from the active command, recent output, working directory, repository, branch, top-level project entries, and the README excerpt when available. Treat README as supporting project context. Let the active command and recent output override README when they describe a more specific current task. Give the activity a specific, stable title. Prefer the current task over generic names such as shell, terminal, repository, or branch. Return exactly one natural short title, preferably 2 to 4 words and no more than 32 characters. Use spaces between words. Do not use hyphens, colons, slashes, pipes, underscores, quotes, markdown, or newline. Do not repeat a branch name or file name unless it identifies the task. Do not include secrets, usernames, or absolute paths. If the activity is ambiguous, choose the most specific command or project purpose visible in the context."
       },
       {
         role: "user",
