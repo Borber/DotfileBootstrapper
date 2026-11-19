@@ -153,9 +153,6 @@ fi
 
 printf '%s' "$$" >"$lock_dir/pid"
 
-session_name=$(tmux display-message -p -t "$target_window" '#{session_name}' 2>/dev/null) || fail "window no longer exists"
-window_index=$(tmux display-message -p -t "$target_window" '#{window_index}' 2>/dev/null) || fail "window no longer exists"
-window_name=$(tmux display-message -p -t "$target_window" '#{window_name}' 2>/dev/null) || fail "window no longer exists"
 working_path=$(tmux display-message -p -t "$target_window" '#{pane_current_path}' 2>/dev/null) || fail "window no longer exists"
 working_name="${working_path##*/}"
 [[ -n "$working_name" ]] || working_name="/"
@@ -205,9 +202,6 @@ active_pane=$(tmux list-panes -t "$target_window" -F '#{pane_id} #{pane_active}'
 
 pane_output=$(tmux capture-pane -p -J -t "$active_pane" -S "-$context_lines" 2>/dev/null || true)
 context=$(cat <<EOF_CONTEXT | sanitize_context
-Session: $session_name
-Window index: $window_index
-Current window name: $window_name
 Working directory: $working_name
 Git repository: ${repo_name:-none}
 Git branch: ${git_branch:-none}
