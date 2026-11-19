@@ -1,0 +1,9 @@
+# 复制为 tmux-ai.local.conf 后填写本机配置。
+# tmux-ai.local.conf 已被 Git 忽略，不要把真实 API key 写入此文件。
+
+TMUX_AI_API_KEY=your-codestral-api-key
+TMUX_AI_ENDPOINT=https://codestral.mistral.ai/v1/chat/completions
+TMUX_AI_MODEL=codestral-latest
+TMUX_AI_MAX_TOKENS=48
+TMUX_AI_TIMEOUT=20
+TMUX_AI_CONTEXT_LINES=60
