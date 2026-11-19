@@ -6,4 +6,4 @@ TMUX_AI_ENDPOINT=https://codestral.mistral.ai/v1/chat/completions
 TMUX_AI_MODEL=codestral-latest
 TMUX_AI_MAX_TOKENS=48
 TMUX_AI_TIMEOUT=20
-TMUX_AI_CONTEXT_LINES=60
+TMUX_AI_CONTEXT_LINES=200

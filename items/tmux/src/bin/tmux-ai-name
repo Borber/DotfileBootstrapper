@@ -93,7 +93,7 @@ sanitize_context() {
     awk '
       BEGIN { total = 0 }
       {
-        remaining = 12000 - total
+        remaining = 24000 - total
         if (remaining <= 0) {
           exit
         }
@@ -160,18 +160,10 @@ working_name="${working_path##*/}"
 git_root=$(git -C "$working_path" rev-parse --show-toplevel 2>/dev/null || true)
 repo_name=""
 git_branch=""
-git_status="none"
 if [[ -n "$git_root" ]]; then
   repo_name="${git_root##*/}"
   git_branch=$(git -C "$working_path" branch --show-current 2>/dev/null || true)
   [[ -n "$git_branch" ]] || git_branch="detached"
-
-  changed_files=$(git -C "$working_path" status --short 2>/dev/null | awk 'END { print NR + 0 }')
-  if ((changed_files > 0)); then
-    git_status="$changed_files changed file(s)"
-  else
-    git_status="clean"
-  fi
 fi
 
 configured_api_key=$(read_config_value TMUX_AI_API_KEY "$config_file")
@@ -186,12 +178,12 @@ endpoint="${TMUX_AI_ENDPOINT:-${configured_endpoint:-$default_endpoint}}"
 model="${TMUX_AI_MODEL:-${configured_model:-$default_model}}"
 max_tokens="${TMUX_AI_MAX_TOKENS:-${configured_max_tokens:-48}}"
 timeout="${TMUX_AI_TIMEOUT:-${configured_timeout:-20}}"
-context_lines="${TMUX_AI_CONTEXT_LINES:-${configured_context_lines:-60}}"
+context_lines="${TMUX_AI_CONTEXT_LINES:-${configured_context_lines:-200}}"
 
 [[ -n "$api_key" && "$api_key" != your-* ]] || fail "configure TMUX_AI_API_KEY in $config_file"
 [[ "$max_tokens" =~ ^[1-9][0-9]*$ ]] || max_tokens=48
 [[ "$timeout" =~ ^[1-9][0-9]*$ ]] || timeout=20
-[[ "$context_lines" =~ ^[1-9][0-9]*$ ]] || context_lines=60
+[[ "$context_lines" =~ ^[1-9][0-9]*$ ]] || context_lines=200
 
 pane_context=$(tmux list-panes -t "$target_window" \
   -F 'pane=#{pane_index} active=#{pane_active} command=#{pane_current_command} title=#{pane_title} directory=#{b:pane_current_path}' \
@@ -200,12 +192,28 @@ pane_context=$(tmux list-panes -t "$target_window" \
 active_pane=$(tmux list-panes -t "$target_window" -F '#{pane_id} #{pane_active}' 2>/dev/null | awk '$2 == 1 { print $1; exit }')
 [[ -n "$active_pane" ]] || fail "no active pane found"
 
+top_level_entries=$(
+  (
+    shopt -s nullglob dotglob
+    for entry in "$working_path"/*; do
+      entry_name="${entry##*/}"
+      if [[ -d "$entry" ]]; then
+        printf '%s/\n' "$entry_name"
+      else
+        printf '%s\n' "$entry_name"
+      fi
+    done
+  ) | sort | awk 'NR <= 100'
+)
+[[ -n "$top_level_entries" ]] || top_level_entries="(empty)"
+
 pane_output=$(tmux capture-pane -p -J -t "$active_pane" -S "-$context_lines" 2>/dev/null || true)
 context=$(cat <<EOF_CONTEXT | sanitize_context
 Working directory: $working_name
 Git repository: ${repo_name:-none}
 Git branch: ${git_branch:-none}
-Git status: $git_status
+Top-level entries:
+$top_level_entries
 Panes:
 $pane_context
 Recent active pane output:
@@ -222,7 +230,7 @@ request_body=$(jq -n \
     messages: [
       {
         role: "system",
-        content: "You name one tmux window. Return exactly one natural short title, preferably 2 to 4 words and no more than 32 characters. Use spaces between words. Do not use hyphens, colons, slashes, pipes, underscores, quotes, markdown, or newline. Do not join the project and task with a separator. Focus on the current task, repository, or service. Do not include secrets, usernames, or absolute paths. If the context is ambiguous, use the most specific command or directory name."
+        content: "You name one tmux window from terminal activity. Infer the primary task from the active command, recent output, working directory, repository, branch, and top-level project entries. Give the activity a specific, stable title. Prefer the current task over generic names such as shell, terminal, repository, or branch. Return exactly one natural short title, preferably 2 to 4 words and no more than 32 characters. Use spaces between words. Do not use hyphens, colons, slashes, pipes, underscores, quotes, markdown, or newline. Do not repeat a branch name or file name unless it identifies the task. Do not include secrets, usernames, or absolute paths. If the activity is ambiguous, choose the most specific command or project purpose visible in the context."
       },
       {
         role: "user",
