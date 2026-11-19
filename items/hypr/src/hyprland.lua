@@ -274,7 +274,7 @@ hl.window_rule({
 require("outputs")
 -- Noctalia 截图快捷键
 require("screenshot")(noctalia)
--- wl-kbptr 键盘快速点击
-require("wl_kbptr")
+-- binger 键盘快速点击
+require("binger")
 -- 光标配置
 require("cursor")
