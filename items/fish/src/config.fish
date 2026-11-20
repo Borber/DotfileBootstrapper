@@ -12,3 +12,7 @@ zoxide init fish | source
 
 # kimi-code
 fish_add_path -g "/home/x/.kimi-code/bin"
+
+# >>> grok installer >>>
+fish_add_path $HOME/.grok/bin
+# <<< grok installer <<<
