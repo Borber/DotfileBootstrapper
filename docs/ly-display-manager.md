@@ -129,6 +129,49 @@ sudo systemctl disable display-manager.service
 
 Then reboot again and confirm Ly is the intended login path.
 
+## GNOME Keyring for Noctalia Clipboard History
+
+On CachyOS, Ly ships PAM hooks for GNOME Keyring in `/etc/pam.d/ly`. With
+password login, PAM can create and unlock the `Login` keyring using the system
+login password. Noctalia uses the default keyring to store the key for its
+encrypted clipboard history.
+
+1. Install GNOME Keyring before setting up Noctalia's clipboard storage.
+
+   ```bash
+   sudo pacman -S --needed gnome-keyring
+   ```
+
+2. Sign out and sign back in through Ly with your system password. For a new
+   setup, do this before clicking **Retry** in Noctalia's clipboard settings.
+3. Confirm that the default collection is `/org/freedesktop/secrets/collection/login`
+   and that its `Locked` property is `false`.
+
+   ```bash
+   busctl --user --auto-start=no call org.freedesktop.secrets \
+     /org/freedesktop/secrets org.freedesktop.Secret.Service ReadAlias s default
+   busctl --user --auto-start=no get-property org.freedesktop.secrets \
+     /org/freedesktop/secrets/collection/login org.freedesktop.Secret.Collection Locked
+   ```
+
+4. After a reboot, verify that Ly logs `gkr-pam: unlocked login keyring` and
+   that Noctalia loads the existing encrypted clipboard history.
+
+   ```bash
+   journalctl -b --no-pager -g 'gkr-pam: unlocked login keyring'
+   journalctl --user -b -u noctalia.service --no-pager -g 'loaded encrypted clipboard history'
+   ```
+
+If Noctalia first starts encrypted storage in an existing session before PAM
+initializes `Login`, a separate default keyring can be created. To keep the
+existing clipboard history, copy and verify the `Noctalia encrypted storage key`
+entry in `Login` before setting `Login` as the default. Keep keyring files and
+clipboard history on the local machine.
+
+Verified on CachyOS on 2026-11-21 with Ly 1.4.1 and GNOME Keyring 51.1. After a
+reboot, Ly unlocked `Login` without a keyring prompt, and Noctalia loaded the
+saved encrypted clipboard history.
+
 ## Item Design
 
 Implemented path:
