@@ -238,6 +238,16 @@ hl.config({
 -- ##  窗口规则
 -- ############################################################################
 
+-- mpv 默认浮动，拖动缩放时保持窗口比例。
+hl.window_rule({
+  name = "mpv-floating",
+  match = {
+    class = "^mpv$",
+  },
+  float = true,
+  keep_aspect_ratio = true,
+})
+
 -- Ghostty 无边框模式：禁止分组，保留普通窗口边框
 hl.window_rule({
   name = "ghostty-frameless",
